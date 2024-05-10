@@ -5,15 +5,18 @@ function App() {
   const [current, setCurrent] = useState("");
   const [previous, setPrevious] = useState("");
   const [operand, setOperand] = useState("");
+  const [equation,setEquation]=useState("");
 
   const handleNumber = (event) => {
     setCurrent((prev) => prev + event.target.value);
+    setEquation(equation.concat(event.target.value));
   };
 
   const handleOperand = (event) => {
     setOperand(event.target.value);
+    setEquation(equation.concat(event.target.value));
     if (current === "") return;
-    if (previous !== "") calculate();
+   // if (previous !== "") calculate();
     else {
       setPrevious(current);
       setCurrent("");
@@ -33,14 +36,16 @@ function App() {
         res = String(parseFloat(previous) * parseFloat(current));
         break;
       case "/":
-        if(current===0)
-          return;
-        else
+        if(previous==="0" && current==="0")
+          res="NaN";
+        else if(current==="0")
+          res="NaN";
         res = String(parseFloat(previous) / parseFloat(current));
         break;
       default:
         return;
     }
+  
     setPrevious(res);
     setCurrent("");
     setOperand("");
@@ -50,13 +55,15 @@ function App() {
     setPrevious("");
     setCurrent("");
     setOperand("");
+    setEquation("");
   };
 
 
   return (
     <div className="App">
       <h1>React Calculator</h1>
-      <input type="text" value={`${previous}${operand}${current}`} className="inputText" />
+      <input type="text" value={equation} className="inputText" />
+      <div>{previous}</div>
       <div className="buttons">
         <button value="7" onClick={handleNumber}>
           7
