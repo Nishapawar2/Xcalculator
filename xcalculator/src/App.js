@@ -60,6 +60,8 @@ function App() {
     setOperator("");
   }else{
     setPrevious("Error");
+    setCurrent("");
+    setOperator("");
   }
   };
 
@@ -68,7 +70,7 @@ function App() {
     setCurrent("");
     setOperator("");
     setEquation("");
-    setButtonDis(false)
+    setButtonDis(false);
   };
 
 
