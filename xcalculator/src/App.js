@@ -58,6 +58,8 @@ function App() {
     setPrevious(res);
     setCurrent("");
     setOperator("");
+  }else{
+    setPrevious("Error");
   }
   };
 
