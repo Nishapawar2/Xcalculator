@@ -1,0 +1,22 @@
+.App{
+  text-align: center;
+}
+.buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+
+}
+.inputText{
+  margin-bottom: 20px;
+}
+.buttons button{
+  width: 60px;
+  height: 60px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
