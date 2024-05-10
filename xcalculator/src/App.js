@@ -1,22 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
   const [current, setCurrent] = useState("");
   const [previous, setPrevious] = useState("");
-  const [operand, setOperand] = useState("");
+  const [operator, setOperator] = useState("");
   const [equation,setEquation]=useState("");
+  const [buttonDis,setButtonDis]=useState(false);
 
+  useEffect(()=>{
+    if(previous!=="" && current!=="" && operator !==""){
+      setButtonDis(true);
+    }
+  },[current])
   const handleNumber = (event) => {
     setCurrent((prev) => prev + event.target.value);
     setEquation(equation.concat(event.target.value));
+   
   };
 
-  const handleOperand = (event) => {
-    setOperand(event.target.value);
+  const handleoperator = (event) => {
+    setOperator(event.target.value);
     setEquation(equation.concat(event.target.value));
     if (current === "") return;
-   // if (previous !== "") calculate();
+    // if (previous !== "") calculate();
+  
     else {
       setPrevious(current);
       setCurrent("");
@@ -24,8 +32,9 @@ function App() {
   };
 
   const calculate = () => {
+    if(buttonDis){
     let res;
-    switch (operand) {
+    switch (operator) {
       case "+":
         res = String(parseFloat(previous) + parseFloat(current));
         break;
@@ -48,14 +57,16 @@ function App() {
   
     setPrevious(res);
     setCurrent("");
-    setOperand("");
+    setOperator("");
+  }
   };
 
   const onClickClear = () => {
     setPrevious("");
     setCurrent("");
-    setOperand("");
+    setOperator("");
     setEquation("");
+    setButtonDis(false)
   };
 
 
@@ -74,7 +85,7 @@ function App() {
         <button value="9" onClick={handleNumber}>
           9
         </button>
-        <button value="+" onClick={handleOperand}>
+        <button value="+" onClick={handleoperator}>
           +
         </button>
       </div>
@@ -89,7 +100,7 @@ function App() {
         <button value="6" onClick={handleNumber}>
           6
         </button>
-        <button value="-" onClick={handleOperand}>
+        <button value="-" onClick={handleoperator}>
           -
         </button>
       </div>
@@ -104,7 +115,7 @@ function App() {
         <button value="3" onClick={handleNumber}>
           3
         </button>
-        <button value="*" onClick={handleOperand}>
+        <button value="*" onClick={handleoperator}>
           *
         </button>
       </div>
@@ -119,7 +130,7 @@ function App() {
         <button value="=" onClick={calculate}>
           =
         </button>
-        <button value="/" onClick={handleOperand}>
+        <button value="/" onClick={handleoperator}>
           /
         </button>
       </div>
